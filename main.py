@@ -40,7 +40,7 @@ def pdf_sep (pdf_file, out_dir):
   out_dir é a pasta onde os pdfs divididos serão salvos
   '''
   #Abre o pdf original no modo de leitura
-  with open(pdf_file, 'rb') as pdf:
+  with open(pdf_file, 'rb'):
 
     #Cria dois objetos, o primeiro da classe PdfFileReader para leitura e o segundo, da classe PdfFileWriter, para escrita
     pdf_content = PdfFileReader(pdf_file)
@@ -60,7 +60,7 @@ def pdf_sep (pdf_file, out_dir):
       pdf_name = pdf_get_name(page,pdf_file)
       
       #O médoto os.path.join() une o caminho para gravação, o nome e a extesão do arquivo pdf. 
-      pdf_out = os.path.join(out_dir, pdf_name +'.pdf')
+      pdf_out = os.path.join(out_dir,'\\' + pdf_name +'.pdf')
 
       #Grava o objeto de escrita no arquivo
       with open(pdf_out, 'wb') as pdf_named:
@@ -69,10 +69,10 @@ def pdf_sep (pdf_file, out_dir):
 #Testando as funções
 
 #Caminho para o arquivo original
-path = 'BOLETOS_PREVISC.PDF'
+path = "P:\6-DSE\6.6 RECEITA\6.6.3 AUTOPATROCINIO\6.4.3.1 GERAÇÃO DE COBRANÇA\FATURAMENTO\2022\08-2022\BOLETO\FIESCPREV\SENAI SC\SENAI SC 082022.PDF"
 
 #Pasta onde os PDFs serão salvos
-out_dir = 'C:\EITI\Python\Separando-e-nomendo-PDFs\saida'
+out_dir = "saida"
 
 #Invoca a função separador
 pdf_sep(path,out_dir)
