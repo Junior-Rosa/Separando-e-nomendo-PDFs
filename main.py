@@ -69,10 +69,10 @@ def pdf_sep (pdf_file, out_dir):
 #Testando as funções
 
 #Caminho para o arquivo original
-path = "SENACPREV17102022.PDF"
+path = " "
 
 #Pasta onde os PDFs serão salvos
-out_dir = "C:\EITI\Python\Separando-e-nomendo-PDFs\saida"
+out_dir = " "
 
 #Invoca a função separador
 pdf_sep(path,out_dir)
