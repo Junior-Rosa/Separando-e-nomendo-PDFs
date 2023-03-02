@@ -1,6 +1,6 @@
 import os
 import pdfplumber
-from PyPDF2 import PdfWriter, PdfFileReader
+from PyPDF2 import PdfWriter, PdfReader
 
 
 def pdf_get_name (page, pdf_file):
@@ -20,14 +20,14 @@ def pdf_get_name (page, pdf_file):
   pdf_text = pdf_page.extract_text().split('\n')
 
   #O nome que precisa ser extraído está na posição 4 da lista 'pdf_text'.
-#   for i, v in enumerate(pdf_text):
-#     print('linha: {} conteudo: {}'. format(i,v))
+  for i, v in enumerate(pdf_text):
+        print('linha: {} conteudo: {}'. format(i,v))
   name = pdf_text[5]
 
   #Limpa o nome extraído removendo alguns números. Para isso é passado um filtro com a função lambda que verifica caractere por caractere. 
   #Caso o caractere não esteja em '0123456789', ele é retonado dentro de uma lista.
   name = list(filter(lambda c: c not in '0123456789', name))
-  name = list(filter(lambda c: c not in '.,/\q', name))
+  name = list(filter(lambda c: c not in '.,/\\', name))
   #O método join() une os caracteres em uma única string novamente. Em seguida, remove os espaços em excesso.
   name = ''.join(name).strip()
 
@@ -43,18 +43,18 @@ def pdf_sep (pdf_file, out_dir):
   with open(pdf_file, 'rb'):
 
     #Cria dois objetos, o primeiro da classe PdfFileReader para leitura e o segundo, da classe PdfFileWriter, para escrita
-    pdf_content = PdfFileReader(pdf_file)
+    pdf_content = PdfReader(pdf_file)
     pdf_writer = PdfWriter()
 
     #Armazena o quantidade de páginas do pdf original
-    num_pages = pdf_content.getNumPages()
+    num_pages = len(pdf_content.pages)
     
     #Faz uma iteração para cada uma das páginas
     for page in range(num_pages):
       
       pdf_writer = PdfWriter()
       #Adiciona a página da iteração atual ao objeto para escrita do PDF
-      pdf_writer.addPage(pdf_content.getPage(page))
+      pdf_writer.add_page(pdf_content.pages[page])
 
       #Invoca a função pdf_get_name para extrair o nome contido na página atual
       pdf_name = pdf_get_name(page,pdf_file)
